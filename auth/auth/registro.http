@@ -1,0 +1,21 @@
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "email": "test@studyfast.com",
+  "password": "clave123",
+  "displayName": "Estudiante uno"
+}
+
+### LOGIN DE USUARIO
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@studyfast.com",
+  "password": "clave123"
+}
+
+### RUTA PROTEGIDA
+GET http://localhost:8080/api/test/user
+Authorization: Basic dGVzdEBzdHVkeWZhc3QuY29tOmNsYXZlMTIz
