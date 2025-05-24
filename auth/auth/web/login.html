@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | StudyFast</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+    }
+    input, button {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      width: 100%;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Iniciar Sesión</h2>
+
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Correo electrónico" required /><br/>
+    <input type="password" id="password" placeholder="Contraseña" required /><br/>
+    <button type="submit">Ingresar</button>
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        result.textContent = data.message || "Inicio de sesión exitoso";
+        result.style.color = "green";
+
+        // Aquí podrías guardar el usuario o redirigir
+        // localStorage.setItem("usuario", email);
+        // window.location.href = "pagina-protegida.html";
+      } else {
+        result.textContent = data.message || "Credenciales inválidas";
+        result.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>
